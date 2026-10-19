@@ -314,61 +314,101 @@ body {
 }
 
 .map-header {
-  padding: 12px 16px;
+  padding: 12px 14px;
   background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
-  border-bottom: 1px solid rgba(255, 191, 0, 0.25);
+  border-bottom: 1px solid rgba(255, 191, 0, 0.3);
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.map-header-left {
+.map-header-top-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  width: 100%;
+}
+
+.map-header-title-box {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
 .map-header-title {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 800;
   color: #78350F;
+  white-space: nowrap;
+  word-break: keep-all;
+  line-height: 1.25;
 }
 
 .map-header-subtitle {
   font-size: 11px;
   color: #92400E;
-  margin-top: 1px;
+  white-space: nowrap;
+  word-break: keep-all;
+  line-height: 1.3;
+  margin-top: 2px;
 }
 
-.map-controls {
+.map-controls-toolbar {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.map-controls-group {
+  display: flex;
+  align-items: center;
   gap: 6px;
 }
 
 .map-btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+  word-break: keep-all;
   background-color: #FFFFFF;
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(203, 213, 225, 0.9);
   border-radius: var(--radius-sm);
-  padding: 4px 8px;
+  padding: 5px 10px;
   font-size: 11px;
   font-weight: 700;
   color: var(--color-text-main);
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
   transition: all var(--trans-fast);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 .map-btn:hover {
   background-color: #F8FAFC;
-  border-color: #CBD5E1;
+  border-color: #94A3B8;
 }
 
 .map-btn.active {
   background-color: var(--color-emart-yellow);
-  border-color: var(--color-emart-yellow);
+  border-color: #E5AB00;
   color: #111;
+  font-weight: 800;
+}
+
+.map-btn.map-btn-highlight {
+  border-color: #FCA5A5;
+  background: #FFFFFF;
+}
+
+.map-btn.map-btn-zoom {
+  padding: 5px 9px;
+  font-size: 12px;
+  font-weight: 800;
 }
 
 /* Map Interactive Viewport - 1F Dedicated */
@@ -557,6 +597,8 @@ body {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 10px;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .route-header-title {
@@ -566,15 +608,19 @@ body {
   font-size: 14px;
   font-weight: 800;
   color: var(--color-text-main);
+  white-space: nowrap;
+  word-break: keep-all;
 }
 
 .route-step-summary {
   font-size: 11px;
   color: #B45309;
   background-color: var(--color-emart-yellow-light);
-  padding: 3px 8px;
+  padding: 4px 10px;
   border-radius: var(--radius-full);
   font-weight: 700;
+  word-break: keep-all;
+  line-height: 1.35;
 }
 
 /* Horizontal Clickable Waypoint Chips (1 to 7) */
@@ -2157,24 +2203,31 @@ body {
 }
 
 /* ==========================================================================
-   GPS 내위치 RED DOT MARKER STYLES
+   GPS 내위치 RED DOT MARKER & MAP FOOTER LEGEND STYLES
    ========================================================================== */
 .btn-back-to-cart {
-  background: none;
-  border: 1px solid rgba(120, 53, 15, 0.25);
+  background: #FFFFFF;
+  border: 1.5px solid rgba(180, 83, 9, 0.35);
   border-radius: var(--radius-full);
-  padding: 4px 10px;
+  padding: 5px 12px;
   font-family: inherit;
   font-size: 11px;
   font-weight: 800;
   color: #78350F;
   cursor: pointer;
   transition: all var(--trans-fast);
-  margin-right: 6px;
+  white-space: nowrap;
+  word-break: keep-all;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .btn-back-to-cart:hover {
   background-color: #FEF3C7;
+  border-color: #B45309;
 }
 
 .my-location-marker {
@@ -2229,18 +2282,104 @@ body {
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
+/* ==========================================================================
+   Map Footer Bar & Legend (줄바꿈 방지 및 시인성 최적화)
+   ========================================================================== */
+.map-footer-bar {
+  padding: 10px 14px;
+  background: #FFFFFF;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.map-legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.legend-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.legend-dot.target {
+  background-color: var(--color-emart-yellow);
+  box-shadow: 0 0 0 1.5px rgba(255, 191, 0, 0.4);
+}
+
+.legend-dot.done {
+  background-color: #10B981;
+  box-shadow: 0 0 0 1.5px rgba(16, 185, 129, 0.35);
+}
+
+.legend-dot.path {
+  background-color: #EA580C;
+  box-shadow: 0 0 0 1.5px rgba(234, 88, 12, 0.35);
+}
+
 .legend-dot.my-loc {
   background-color: #EF4444;
-  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.25);
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3);
+}
+
+.legend-text {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-sub);
+  white-space: nowrap;
+  word-break: keep-all;
+}
+
+.map-touch-guide-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background-color: #F8FAFC;
+  border: 1px dashed #CBD5E1;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.touch-icon {
+  font-size: 11px;
+  line-height: 1;
+}
+
+.touch-text {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748B;
+  white-space: nowrap;
+  word-break: keep-all;
 }
 
 /* ==========================================================================
-   FLOATING AR 길안내 BUTTON STYLES (오른쪽 하단 배치)
+   FLOATING AR 길안내 BUTTON STYLES (지도 왼쪽 하단 배치 - 지도 가림 방지)
    ========================================================================== */
 .btn-ar-floating {
   position: absolute;
   bottom: 12px;
-  right: 12px;
+  left: 12px;
+  right: auto;
   z-index: 35;
   background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
   border: 1.5px solid rgba(255, 191, 0, 0.6);
@@ -2327,55 +2466,30 @@ body {
   object-fit: cover;
 }
 
-/* Realistic 3D Aisle Backdrop Fallback (Camera denied or Desktop) */
+/* AR Backdrop Fallback: '노브랜드 매대.jpg' 사진 기반 AR 화면 (카메라 미연결/데스크톱) */
 .ar-simulated-backdrop {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 50% 35%, #334155 0%, #0F172A 70%, #020617 100%);
-  perspective: 600px;
+  background-color: #0F172A;
   overflow: hidden;
 }
 
-.sim-aisle-ceiling {
-  position: absolute;
-  top: 0;
-  left: 0;
+.ar-nobrand-bg-img {
   width: 100%;
-  height: 25%;
-  background: repeating-linear-gradient(90deg, #1E293B, #1E293B 60px, #334155 60px, #334155 65px);
-  border-bottom: 2px solid #64748B;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  filter: brightness(0.85) contrast(1.08);
+  transform: scale(1.02);
 }
 
-.sim-shelf-left {
+.ar-nobrand-overlay-gradient {
   position: absolute;
-  top: 25%;
-  left: 0;
-  width: 25%;
-  height: 55%;
-  background: repeating-linear-gradient(0deg, #1E293B, #1E293B 35px, #475569 35px, #475569 38px);
-  border-right: 3px solid #FFBF00;
-}
-
-.sim-shelf-right {
-  position: absolute;
-  top: 25%;
-  right: 0;
-  width: 25%;
-  height: 55%;
-  background: repeating-linear-gradient(0deg, #1E293B, #1E293B 35px, #475569 35px, #475569 38px);
-  border-left: 3px solid #FFBF00;
-}
-
-.sim-aisle-floor {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 40%;
-  background: linear-gradient(180deg, #1E293B 0%, #0F172A 100%);
-  border-top: 1px solid #475569;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.4) 0%, rgba(0, 0, 0, 0.08) 45%, rgba(15, 23, 42, 0.72) 100%);
+  pointer-events: none;
 }
 
 /* AR Hologram Stage */
@@ -2678,3 +2792,60 @@ body {
   font-weight: 700;
   cursor: pointer;
 }
+
+/* ==========================================================================
+   Mobile Ergonomics & Anti-Awkward Word Wrapping Media Query
+   ========================================================================== */
+@media (max-width: 480px) {
+  .map-header {
+    padding: 10px 12px;
+  }
+  
+  .map-header-top-row {
+    gap: 8px;
+  }
+  
+  .btn-back-to-cart {
+    padding: 4px 10px;
+    font-size: 11px;
+  }
+  
+  .map-header-title {
+    font-size: 13.5px;
+  }
+  
+  .map-header-subtitle {
+    font-size: 10.5px;
+  }
+  
+  .map-controls-toolbar {
+    gap: 6px;
+  }
+  
+  .map-btn {
+    padding: 4px 8px;
+    font-size: 10.5px;
+  }
+  
+  .map-footer-bar {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  
+  .map-legend {
+    gap: 6px 10px;
+  }
+  
+  .legend-text {
+    font-size: 10.5px;
+  }
+  
+  .map-touch-guide-badge {
+    padding: 3px 8px;
+  }
+  
+  .touch-text {
+    font-size: 10px;
+  }
+}
+

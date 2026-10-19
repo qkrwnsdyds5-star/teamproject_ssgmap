@@ -86,7 +86,6 @@
           </div>
           <div class="cart-hero-badges">
             <span class="hero-chip">⚡ 무게·온도 최적 적재</span>
-            <span class="hero-chip">🚶 흰색 통로 100% 동선</span>
             <span class="hero-chip">🧭 AR 카메라 길안내</span>
           </div>
         </div>
@@ -197,22 +196,30 @@
       <div class="map-section">
         <div class="map-card">
           <!-- Map Header Info & Zoom / GPS Controls -->
+          <!-- Map Header Info & Zoom / GPS Controls -->
           <div class="map-header">
-            <div class="map-header-left">
+            <!-- Top Row: Back to Cart CTA + Title & Subtitle -->
+            <div class="map-header-top-row">
               <button class="btn-back-to-cart" id="btnBackToCart" title="장바구니 목록으로 돌아가기">
                 ‹ 장바구니 수정
               </button>
-              <div>
+              <div class="map-header-title-box">
                 <h1 class="map-header-title">이마트 금정점 1층 실시간 맵</h1>
                 <p class="map-header-subtitle">고객 전용 통로(흰색) 기반 최적 동선 안내</p>
               </div>
             </div>
-            <div class="map-controls">
-              <button class="map-btn" id="btnGpsLocate" title="GPS 내 위치 찾기">📍 내위치</button>
-              <button class="map-btn" id="btnSimulateWalk" title="보행 동선 시뮬레이션">🚶 걷기시뮬</button>
-              <button class="map-btn active" id="btnResetView" title="기본 배율">1F 전체</button>
-              <button class="map-btn" id="btnZoomIn" title="확대" aria-label="지도 확대">+</button>
-              <button class="map-btn" id="btnZoomOut" title="축소" aria-label="지도 축소">-</button>
+
+            <!-- Bottom Row: GPS Locate, Walk Sim & View Controls Toolbar -->
+            <div class="map-controls-toolbar">
+              <div class="map-controls-group">
+                <button class="map-btn map-btn-highlight" id="btnGpsLocate" title="GPS 내 위치 찾기">📍 내위치</button>
+                <button class="map-btn" id="btnSimulateWalk" title="보행 동선 시뮬레이션">🚶 걷기시뮬</button>
+              </div>
+              <div class="map-controls-group">
+                <button class="map-btn active" id="btnResetView" title="1F 기본 전체 배율">1F 전체</button>
+                <button class="map-btn map-btn-zoom" id="btnZoomIn" title="확대" aria-label="지도 확대">+</button>
+                <button class="map-btn map-btn-zoom" id="btnZoomOut" title="축소" aria-label="지도 축소">-</button>
+              </div>
             </div>
           </div>
 
@@ -252,27 +259,30 @@
             </button>
           </div>
 
-          <!-- Map Footer Legend -->
+          <!-- Map Footer Legend & Touch Interaction Hint -->
           <div class="map-footer-bar">
             <div class="map-legend">
               <div class="legend-item">
                 <span class="legend-dot target"></span>
-                <span>1~7번 순번 (숫자 핀)</span>
+                <span class="legend-text">1~7번 순번 (숫자 핀)</span>
               </div>
               <div class="legend-item">
                 <span class="legend-dot done"></span>
-                <span>담은 상품 (✓)</span>
+                <span class="legend-text">담은 상품 (✓ 완료)</span>
               </div>
               <div class="legend-item">
                 <span class="legend-dot path"></span>
-                <span>보행 통로 동선 (흰색)</span>
+                <span class="legend-text">보행 통로 동선 (흰색)</span>
               </div>
               <div class="legend-item">
                 <span class="legend-dot my-loc"></span>
-                <span>내위치 (빨간 점)</span>
+                <span class="legend-text">내위치 (빨간 점)</span>
               </div>
             </div>
-            <span style="font-size:11px; color:#888;">지도 터치 시 내위치 즉시 이동</span>
+            <div class="map-touch-guide-badge">
+              <span class="touch-icon">👆</span>
+              <span class="touch-text">지도 터치 시 내위치 즉시 이동</span>
+            </div>
           </div>
         </div>
       </div>
@@ -289,7 +299,7 @@
               입구 ➔ 1.라면(상온/바닥) ➔ 2.사과(청과/하단) ➔ 3.우유(냉장/1L) ➔ 4.삼겹살(신선육) ➔ 5.식빵(상단) ➔ 6.계란(파손주의) ➔ 7.만두(냉동) ➔ 계산대
             </span>
           </div>
-          <div style="font-size: 11px; color: #64748B; margin-bottom: 8px;">
+          <div style="font-size: 11px; color: #64748B; margin-bottom: 8px; word-break: keep-all; line-height: 1.5;">
             상온/무거운 상품을 먼저 싣고, 찌그러지거나 깨지기 쉬운 품목은 위로, 냉동식품은 녹지 않게 계산대 직전에 담습니다. <b>'+ 카트에 담기'</b>를 누르면 자동으로 다음 상품으로 넘어갑니다.
           </div>
 
@@ -412,12 +422,10 @@
       <div class="ar-camera-container">
         <!-- Live device camera stream (if permitted) -->
         <video id="arVideoFeed" class="ar-video-feed" autoplay playsinline muted></video>
-        <!-- Realistic 3D Aisle Simulation Fallback Background -->
+        <!-- Fallback Background with '노브랜드 매대.jpg' -->
         <div class="ar-simulated-backdrop" id="arSimBackdrop">
-          <div class="sim-aisle-ceiling"></div>
-          <div class="sim-shelf-left"></div>
-          <div class="sim-shelf-right"></div>
-          <div class="sim-aisle-floor"></div>
+          <img src="./노브랜드 매대.jpg" alt="노브랜드 매대 배경" class="ar-nobrand-bg-img" id="arNobrandBgImg" />
+          <div class="ar-nobrand-overlay-gradient"></div>
         </div>
       </div>
 

@@ -136,73 +136,73 @@ document.addEventListener('DOMContentLoaded', () => {
       shortName: '해찬들 쌈장',
       category: '가공식품',
       typeBadge: '상온 양념/조미료',
-      reasonBadge: '삼겹살 필수템',
-      image: 'emart_pork.png',
+      reasonBadge: '삼겹살 필수 짝꿍',
+      image: './CJ 해찬들 사계절 쌈장 (500g).png',
       location: '1층 가공식품 양념 매대',
       mapCoords: { x: 63.3, y: 44.1 },
       price: 2980,
-      unit: '1통',
+      unit: '1통 (500g)',
       storageTip: '개봉 후 냉장 보관. 삼겹살과 함께 구워 드실 때 필수 양념입니다.',
       relatedTo: ['prod-04']
     },
     {
       id: 'prod-09',
-      name: '친환경 모둠 쌈채소/상추 (150g)',
-      shortName: '친환경 청상추',
+      name: '친환경 모둠 쌈채소 (150g)',
+      shortName: '모둠 쌈채소',
       category: '채소',
       typeBadge: '상온 신선채소',
-      reasonBadge: '삼겹살 쌈채소',
-      image: 'emart_apple.png',
+      reasonBadge: '삼겹살 신선 쌈채소',
+      image: './친환경 모둠 쌈채소 (150g).png',
       location: '1층 농산 채소 코너',
       mapCoords: { x: 39.1, y: 17.1 },
-      price: 1980,
-      unit: '1봉',
-      storageTip: '신선란, 고기와 함께 즐기는 신선한 상추 쌈채소입니다.',
+      price: 2480,
+      unit: '1봉 (150g)',
+      storageTip: '신선한 상추와 깻잎 등 고기와 함께 즐기는 신선 쌈채소입니다.',
       relatedTo: ['prod-04']
     },
     {
       id: 'prod-10',
-      name: '노브랜드 맛있는 배추김치 (1kg)',
-      shortName: '노브랜드 김치',
+      name: '피코크 아삭하고 맛있는 맛김치 (1kg)',
+      shortName: '피코크 맛김치',
       category: '반찬',
       typeBadge: '냉장 김치/반찬',
       reasonBadge: '라면 찰떡궁합',
-      image: 'emart_ramen.png',
+      image: './피코크 아삭하고 맛있는 맛김치 (1kg).png',
       location: '1층 가공냉장 반찬 매대',
       mapCoords: { x: 46.5, y: 44.1 },
-      price: 5480,
-      unit: '1봉',
-      storageTip: '0~10℃ 냉장 보관. 라면과 환상의 조화를 이루는 아삭한 김치입니다.',
+      price: 7980,
+      unit: '1봉 (1kg)',
+      storageTip: '0~10℃ 냉장 보관. 라면과 환상의 조화를 이루는 아삭하고 시원한 김치입니다.',
       relatedTo: ['prod-01']
     },
     {
       id: 'prod-11',
       name: '서울우유 체다 슬라이스 치즈 (15매)',
-      shortName: '슬라이스 치즈',
+      shortName: '체다치즈 15매',
       category: '유제품',
       typeBadge: '냉장 유제품',
-      reasonBadge: '라면·토스트 추가',
-      image: 'emart_milk.png',
+      reasonBadge: '라면·식빵 토핑',
+      image: './서울우유 체다 슬라이스 치즈 (15매).png',
       location: '1층 우유·치즈 전용 매대',
       mapCoords: { x: 59.4, y: 44.1 },
-      price: 3980,
+      price: 4480,
       unit: '1팩 (15매)',
-      storageTip: '냉장 보관. 라면에 얹거나 샌드위치 식빵에 넣어 고소하게 즐기세요.',
+      storageTip: '냉장 보관. 라면에 얹어 치즈라면으로 즐기거나 식빵에 넣어 고소하게 드세요.',
       relatedTo: ['prod-01', 'prod-05']
     },
     {
       id: 'prod-12',
-      name: '상하목장 유기농 딸기잼 (300g)',
-      shortName: '유기농 딸기잼',
+      name: '복음자리 45도 딸기잼 (350g)',
+      shortName: '복음자리 딸기잼',
       category: '가공식품',
       typeBadge: '상온 스프레드',
       reasonBadge: '식빵 단짝 스프레드',
-      image: 'emart_whtie_bread.png',
+      image: './복음자리 45도 딸기잼 (350g).png',
       location: '1층 가공식품 잼/시럽 매대',
       mapCoords: { x: 66.0, y: 44.1 },
-      price: 4200,
-      unit: '1병',
-      storageTip: '개봉 후 냉장 보관. 부드러운 샌드위치 식빵에 발라먹기 좋습니다.',
+      price: 4680,
+      unit: '1병 (350g)',
+      storageTip: '개봉 후 냉장 보관. 부드러운 샌드위치 식빵에 발라먹는 달콤한 과일잼입니다.',
       relatedTo: ['prod-05']
     },
     {
@@ -648,34 +648,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // 5. Recommendations System ('쓱map 시작하기' Modal)
   // =========================================================================
   function getRelatedRecommendations() {
-    // Collect related items based on what's in cart
-    const currentIds = new Set(state.cartItems.map(it => it.id));
-    const recs = [];
-
-    CATALOG_DATABASE.forEach(catalogItem => {
-      if (currentIds.has(catalogItem.id)) return; // Already in cart
-
-      if (catalogItem.relatedTo && catalogItem.relatedTo.length > 0) {
-        // Check if any matching trigger product is in cart
-        const hasTrigger = catalogItem.relatedTo.some(tid => currentIds.has(tid));
-        if (hasTrigger) {
-          recs.push(catalogItem);
-        }
-      }
-    });
-
-    // If not enough related items, suggest general top items
-    if (recs.length < 3) {
-      const generalTop = ['prod-08', 'prod-09', 'prod-10', 'prod-11', 'prod-12'];
-      generalTop.forEach(gid => {
-        if (!currentIds.has(gid) && !recs.some(r => r.id === gid)) {
-          const item = CATALOG_DATABASE.find(it => it.id === gid);
-          if (item) recs.push(item);
-        }
-      });
-    }
-
-    return recs.slice(0, 5);
+    // 지정된 5종 추천 연관상품: 쌈장, 쌈채소, 맛김치, 슬라이스 치즈, 딸기잼
+    const designatedIds = ['prod-08', 'prod-09', 'prod-10', 'prod-11', 'prod-12'];
+    return designatedIds.map(id => CATALOG_DATABASE.find(it => it.id === id)).filter(Boolean);
   }
 
   function openRecommendationModal() {
@@ -1036,10 +1011,14 @@ document.addEventListener('DOMContentLoaded', () => {
     state.arActive = true;
     elements.arNavOverlay.style.display = 'flex';
 
+    // 기본적으로 카메라 미연결 시 '노브랜드 매대.jpg' 실사 배경 즉시 노출
+    if (elements.arSimBackdrop) elements.arSimBackdrop.style.display = 'block';
+    if (elements.arVideoFeed) elements.arVideoFeed.style.display = 'none';
+
     // Update AR HUD based on active item
     updateArHud();
 
-    // Try starting camera stream
+    // Try starting camera stream if supported & permitted
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices.getUserMedia({
         video: { facingMode: { ideal: 'environment' } },
@@ -1053,18 +1032,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (elements.arSimBackdrop) {
           elements.arSimBackdrop.style.display = 'none';
         }
-        showToast('📷 AR 카메라 모드가 시작되었습니다.');
+        showToast('📷 실시간 카메라 AR 모드가 시작되었습니다.');
       }).catch((err) => {
-        // Fallback to high-tech realistic corridor simulation
-        console.log('Camera access fallback to simulation:', err);
+        // Fallback to '노브랜드 매대.jpg' photo with AR overlays
+        console.log('Camera access fallback to 노브랜드 매대 photo:', err);
         if (elements.arVideoFeed) elements.arVideoFeed.style.display = 'none';
         if (elements.arSimBackdrop) elements.arSimBackdrop.style.display = 'block';
-        showToast('🧭 AR 시뮬레이션 모드가 실행되었습니다.');
+        showToast('🧭 노브랜드 매대 실사 AR 길안내가 실행되었습니다.');
       });
     } else {
       if (elements.arVideoFeed) elements.arVideoFeed.style.display = 'none';
       if (elements.arSimBackdrop) elements.arSimBackdrop.style.display = 'block';
-      showToast('🧭 AR 시뮬레이션 모드가 실행되었습니다.');
+      showToast('🧭 노브랜드 매대 실사 AR 길안내가 실행되었습니다.');
     }
   }
 
@@ -1130,11 +1109,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (elements.arSimBackdrop.style.display === 'none') {
         elements.arSimBackdrop.style.display = 'block';
         elements.arVideoFeed.style.display = 'none';
-        showToast('📷 3D 시뮬레이션 배경 모드로 전환');
+        showToast('📷 노브랜드 매대 실사 AR 모드로 전환');
       } else {
         elements.arSimBackdrop.style.display = 'none';
         elements.arVideoFeed.style.display = 'block';
-        showToast('📷 실시간 카메라 모드로 전환');
+        showToast('📷 실시간 카메라 AR 모드로 전환');
       }
     }
   }
