@@ -1,0 +1,2680 @@
+/* ==========================================================================
+   이마트 쓱map - 프리미엄 디자인 시스템 & 스타일시트 (style.css)
+   ========================================================================== */
+
+:root {
+  /* Emart & SSG Signature Brand Colors */
+  --color-emart-yellow: #FFBF00;
+  --color-emart-yellow-hover: #E5AB00;
+  --color-emart-yellow-light: #FFF9E6;
+  --color-emart-yellow-soft: #FEF3C7;
+  --color-emart-dark: #2B2F38;
+  --color-emart-green: #0C5B45;
+  --color-emart-green-light: #E8F5EE;
+  --color-emart-red: #EF4444;
+  --color-emart-red-light: #FEE2E2;
+
+  /* Neutrals */
+  --color-bg: #F4F6F9;
+  --color-surface: #FFFFFF;
+  --color-surface-trans: rgba(255, 255, 255, 0.92);
+  --color-text-main: #191F28;
+  --color-text-sub: #4E5968;
+  --color-text-muted: #8B95A1;
+  --color-border: #E5E8EB;
+  --color-border-light: #F2F4F6;
+
+  /* Typography */
+  --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
+  --shadow-float: 0 14px 40px rgba(0, 0, 0, 0.14);
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --trans-fast: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  --trans-base: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  --trans-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Base Reset & Box Sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* App Wrapper - Center on desktop with mobile viewport feel */
+.app-viewport {
+  max-width: 540px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: var(--color-surface);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.08);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   Top Header (App Navigation Bar)
+   ========================================================================== */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: var(--color-surface-trans);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--color-border);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.app-logo-img {
+  height: 52px; /* Enlarged logo */
+  width: auto;
+  max-width: 170px;
+  object-fit: contain;
+  transition: transform var(--trans-fast);
+}
+
+.app-logo-img:hover {
+  transform: scale(1.04);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.store-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  background-color: var(--color-emart-yellow-light);
+  border: 1px solid rgba(255, 191, 0, 0.35);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 700;
+  color: #78350F;
+  cursor: pointer;
+  transition: all var(--trans-fast);
+}
+
+.store-badge:hover {
+  background-color: #FDE68A;
+}
+
+.store-badge .dot {
+  width: 7px;
+  height: 7px;
+  background-color: #10B981;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.2); }
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-sub);
+  cursor: pointer;
+  transition: background-color var(--trans-fast), transform var(--trans-fast);
+}
+
+.icon-btn:hover {
+  background-color: var(--color-border-light);
+  color: var(--color-text-main);
+}
+
+.icon-btn:active {
+  transform: scale(0.92);
+}
+
+/* ==========================================================================
+   Progress Banner
+   ========================================================================== */
+.shopping-progress-bar-container {
+  background-color: var(--color-surface);
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.progress-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.progress-count {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-emart-green);
+}
+
+.progress-track {
+  height: 8px;
+  background-color: #F0F2F5;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--color-emart-yellow) 0%, #10B981 100%);
+  border-radius: var(--radius-full);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   Navigation Tabs (Map vs List vs Guide)
+   ========================================================================== */
+.nav-tabs {
+  display: flex;
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: 0 16px;
+  position: sticky;
+  top: 59px;
+  z-index: 45;
+}
+
+.tab-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 12px 6px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: color var(--trans-fast);
+}
+
+.tab-btn:hover {
+  color: var(--color-text-main);
+}
+
+.tab-btn.active {
+  color: var(--color-text-main);
+  font-weight: 800;
+}
+
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 15%;
+  right: 15%;
+  height: 3px;
+  background-color: var(--color-emart-yellow);
+  border-radius: 3px 3px 0 0;
+}
+
+.tab-badge {
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+  background-color: #F2F4F6;
+  color: var(--color-text-sub);
+}
+
+.tab-btn.active .tab-badge {
+  background-color: var(--color-emart-yellow);
+  color: #111;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Tab Content Containers
+   ========================================================================== */
+.tab-content {
+  display: none;
+  padding-bottom: 80px;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* ==========================================================================
+   MAP VIEW SECTION
+   ========================================================================== */
+.map-section {
+  padding: 14px 16px;
+}
+
+.map-card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.map-header {
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+  border-bottom: 1px solid rgba(255, 191, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.map-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.map-header-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #78350F;
+}
+
+.map-header-subtitle {
+  font-size: 11px;
+  color: #92400E;
+  margin-top: 1px;
+}
+
+.map-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.map-btn {
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all var(--trans-fast);
+}
+
+.map-btn:hover {
+  background-color: #F8FAFC;
+  border-color: #CBD5E1;
+}
+
+.map-btn.active {
+  background-color: var(--color-emart-yellow);
+  border-color: var(--color-emart-yellow);
+  color: #111;
+}
+
+/* Map Interactive Viewport - 1F Dedicated */
+.map-viewport-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 909 / 560; /* Exact 1F Map Aspect Ratio */
+  overflow: hidden;
+  background-color: #F8FAFC;
+  touch-action: manipulation;
+  cursor: grab;
+}
+
+.map-viewport-wrapper.is-panning {
+  cursor: grabbing;
+}
+
+.map-canvas-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 50%;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.store-map-image {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+/* SVG Overlays for Wayfinding Paths (White Aisles) */
+.map-svg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.route-path {
+  fill: none;
+  stroke: #EA580C;
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 6 5;
+  animation: dash-animation 22s linear infinite;
+}
+
+@keyframes dash-animation {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
+.route-path-halo {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.92);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Interactive Pins Overlay */
+.map-pins-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.map-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform var(--trans-bounce), z-index var(--trans-fast);
+}
+
+.map-pin:hover, .map-pin.active {
+  transform: translate(-50%, -50%) scale(1.22);
+  z-index: 30;
+}
+
+.pin-bubble {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background-color: #FFFFFF;
+  border: 2px solid var(--color-emart-yellow);
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
+  position: relative;
+  transition: transform var(--trans-fast), border-color var(--trans-fast), background-color var(--trans-fast);
+}
+
+.pin-badge-num {
+  font-size: 12px;
+  font-weight: 900;
+  color: #111;
+  line-height: 1;
+}
+
+/* Completed Pin State */
+.map-pin.completed .pin-bubble {
+  border-color: #10B981;
+  background-color: #10B981;
+}
+
+.map-pin.completed .pin-badge-num {
+  color: #FFFFFF;
+}
+
+/* Landmark Pins (Door / Checkout) */
+.map-pin.landmark .pin-bubble {
+  width: auto;
+  height: auto;
+  border-radius: var(--radius-full);
+  padding: 2px 7px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+/* Highlight Selected Pin */
+.map-pin.active .pin-bubble {
+  border-color: #EA580C;
+  background-color: #FFF7ED;
+  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.35), 0 4px 10px rgba(0,0,0,0.25);
+}
+
+.map-pin.active .pin-badge-num {
+  color: #EA580C;
+}
+
+/* Pulsing radar on current target pin */
+.map-pin.is-next::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: rgba(255, 191, 0, 0.55);
+  animation: radar-pulse 1.8s infinite;
+  pointer-events: none;
+}
+
+@keyframes radar-pulse {
+  0% { transform: translate(-50%, -50%) scale(0.6); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
+}
+
+/* ==========================================================================
+   Dedicated Interactive Route Waypoints Section (Under Map)
+   ========================================================================== */
+.route-section-wrapper {
+  padding: 0 16px 16px 16px;
+}
+
+.route-tracker-card {
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.route-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.route-header-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--color-text-main);
+}
+
+.route-step-summary {
+  font-size: 11px;
+  color: #B45309;
+  background-color: var(--color-emart-yellow-light);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+}
+
+/* Horizontal Clickable Waypoint Chips (1 to 7) */
+.waypoints-scroll-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 2px 10px 2px;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.waypoints-scroll-row::-webkit-scrollbar {
+  height: 4px;
+}
+
+.waypoints-scroll-row::-webkit-scrollbar-thumb {
+  background: #E2E8F0;
+  border-radius: 4px;
+}
+
+.waypoint-chip {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #F8FAFC;
+  border: 1.5px solid var(--color-border);
+  padding: 6px 10px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--trans-fast);
+  user-select: none;
+}
+
+.waypoint-chip:hover {
+  background-color: #F1F5F9;
+  border-color: #CBD5E1;
+}
+
+.waypoint-chip.active {
+  background-color: #FFFBEB;
+  border-color: var(--color-emart-yellow);
+  box-shadow: 0 2px 8px rgba(255, 191, 0, 0.28);
+}
+
+.waypoint-chip.completed {
+  background-color: #F0FDF4;
+  border-color: #A7F3D0;
+}
+
+.chip-order-badge {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: var(--color-emart-yellow);
+  color: #111;
+  font-size: 10px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.waypoint-chip.completed .chip-order-badge {
+  background-color: #10B981;
+  color: #FFF;
+}
+
+.chip-img-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--color-border);
+}
+
+.chip-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  white-space: nowrap;
+}
+
+/* Active Waypoint Detail Panel (Clicked Item Info right under route) */
+.waypoint-active-panel {
+  margin-top: 10px;
+  background: linear-gradient(135deg, #FFFDF7 0%, #FFFBEB 100%);
+  border: 1.5px solid #FDE68A;
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  animation: panel-in 0.25s ease-out;
+}
+
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.active-panel-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.active-panel-thumb {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  border: 1px solid #FCD34D;
+  background-color: #FFF;
+  flex-shrink: 0;
+}
+
+.active-panel-meta {
+  min-width: 0;
+}
+
+.active-panel-order {
+  font-size: 11px;
+  font-weight: 800;
+  color: #B45309;
+}
+
+.active-panel-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--color-text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.active-panel-location {
+  font-size: 12px;
+  color: var(--color-emart-green);
+  font-weight: 700;
+}
+
+.active-panel-price {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--color-text-sub);
+}
+
+.active-panel-btn {
+  background-color: var(--color-emart-yellow);
+  color: #111;
+  border: none;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(255, 191, 0, 0.35);
+  transition: all var(--trans-fast);
+}
+
+.active-panel-btn:hover {
+  background-color: var(--color-emart-yellow-hover);
+}
+
+.active-panel-btn.is-checked {
+  background-color: #10B981;
+  color: #FFF;
+}
+
+/* Map Footer Guide & Legend */
+.map-footer-bar {
+  padding: 10px 14px;
+  background-color: #F8FAFC;
+  border-top: 1px solid var(--color-border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--color-text-sub);
+}
+
+.map-legend {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+}
+
+.legend-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.legend-dot.target { background-color: var(--color-emart-yellow); border: 1px solid #B45309; }
+.legend-dot.done { background-color: #10B981; }
+.legend-dot.path { width: 14px; height: 3px; border-radius: 2px; background-color: var(--color-emart-yellow); }
+
+/* ==========================================================================
+   SHOPPING LIST SECTION
+   ========================================================================== */
+.list-section {
+  padding: 16px;
+}
+
+.list-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.filter-chips {
+  display: flex;
+  gap: 6px;
+}
+
+.filter-chip {
+  background-color: #F2F4F6;
+  border: 1px solid transparent;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text-sub);
+  cursor: pointer;
+  transition: all var(--trans-fast);
+}
+
+.filter-chip.active {
+  background-color: var(--color-emart-dark);
+  color: #FFFFFF;
+}
+
+.list-order-select {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-sub);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 5px 8px;
+  background-color: #FFFFFF;
+  cursor: pointer;
+}
+
+/* Product Cards Grid / Column */
+.items-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.product-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--trans-fast), box-shadow var(--trans-fast), border-color var(--trans-fast);
+  position: relative;
+}
+
+.product-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: #D1D5DB;
+}
+
+.product-card.completed {
+  background-color: #FAFAFA;
+  border-color: #E5E7EB;
+  opacity: 0.85;
+}
+
+.product-thumb-box {
+  width: 68px;
+  height: 68px;
+  border-radius: var(--radius-sm);
+  background-color: #F8FAFC;
+  border: 1px solid var(--color-border-light);
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.product-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.product-thumb-box:hover .product-thumb-img {
+  transform: scale(1.08);
+}
+
+.order-tag {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #FFF;
+  font-size: 10px;
+  font-weight: 900;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-info-box {
+  flex: 1;
+  min-width: 0;
+}
+
+.product-header-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.category-badge {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: var(--color-emart-yellow-light);
+  color: #92400E;
+}
+
+.category-badge.과일 { background-color: #FEF2F2; color: #DC2626; }
+.category-badge.축산 { background-color: #FEE2E2; color: #B91C1C; }
+.category-badge.냉동가공 { background-color: #EFF6FF; color: #1D4ED8; }
+.category-badge.유제품 { background-color: #ECFDF5; color: #047857; }
+.category-badge.면류 { background-color: #FFFBEB; color: #B45309; }
+.category-badge.베이커리 { background-color: #FAF5FF; color: #6D28D9; }
+
+.product-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 3px;
+}
+
+.product-card.completed .product-name {
+  text-decoration: line-through;
+  color: var(--color-text-muted);
+}
+
+.product-location {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--color-emart-green);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.product-meta-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.product-price {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-text-main);
+}
+
+.view-map-link {
+  font-size: 11px;
+  font-weight: 600;
+  color: #2563EB;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: background-color var(--trans-fast);
+}
+
+.view-map-link:hover {
+  background-color: #EFF6FF;
+}
+
+/* Checkbox Toggle Button */
+.check-toggle-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #D1D5DB;
+  background-color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all var(--trans-bounce);
+  color: transparent;
+}
+
+.check-toggle-btn:hover {
+  border-color: var(--color-emart-yellow);
+  transform: scale(1.08);
+}
+
+.product-card.completed .check-toggle-btn {
+  background-color: #10B981;
+  border-color: #10B981;
+  color: #FFFFFF;
+  transform: scale(1.05);
+}
+
+/* ==========================================================================
+   STORE GUIDE TAB
+   ========================================================================== */
+.guide-section {
+  padding: 16px;
+}
+
+.guide-banner {
+  background: linear-gradient(135deg, #1A1A1A 0%, #2D3748 100%);
+  color: #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.guide-banner h2 {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-emart-yellow);
+  margin-bottom: 6px;
+}
+
+.guide-banner p {
+  font-size: 13px;
+  color: #CBD5E1;
+  line-height: 1.6;
+}
+
+.floor-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.floor-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.floor-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.floor-tag {
+  font-size: 16px;
+  font-weight: 900;
+  background-color: var(--color-emart-yellow);
+  color: #111;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floor-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-text-main);
+}
+
+.floor-items {
+  font-size: 13px;
+  color: var(--color-text-sub);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   Bottom Action Bar
+   ========================================================================== */
+.bottom-bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 40;
+  background-color: var(--color-surface-trans);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid var(--color-border);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn-primary {
+  flex: 1;
+  background-color: var(--color-emart-yellow);
+  color: #111;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(255, 191, 0, 0.4);
+  transition: all var(--trans-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-emart-yellow-hover);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+.btn-secondary {
+  background-color: #F2F4F6;
+  color: var(--color-text-main);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--trans-fast);
+}
+
+.btn-secondary:hover {
+  background-color: #E5E8EB;
+}
+
+/* ==========================================================================
+   Celebration Modal ("장보기 완료!" With Goraeit Character)
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background-color: rgba(17, 24, 39, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 440px;
+  background-color: #FFFFFF;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: var(--shadow-float);
+  text-align: center;
+  padding: 32px 24px 24px 24px;
+  position: relative;
+  transform: translateY(30px) scale(0.92);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-overlay.active .modal-card {
+  transform: translateY(0) scale(1);
+}
+
+/* Canvas Confetti Background */
+.confetti-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.modal-content-relative {
+  position: relative;
+  z-index: 2;
+}
+
+/* Goraeit Character Graphic */
+.goraeit-hero-box {
+  width: 170px;
+  height: 170px;
+  margin: 0 auto 16px auto;
+  position: relative;
+}
+
+.goraeit-character-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: float-goraeit 3s ease-in-out infinite;
+  filter: drop-shadow(0 12px 24px rgba(255, 191, 0, 0.3));
+}
+
+@keyframes float-goraeit {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+.goraeit-badge {
+  display: inline-block;
+  background-color: var(--color-emart-yellow);
+  color: #111;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: 10px;
+  box-shadow: 0 4px 10px rgba(255, 191, 0, 0.3);
+}
+
+.modal-title {
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--color-text-main);
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+}
+
+.modal-subtitle {
+  font-size: 14px;
+  color: var(--color-text-sub);
+  line-height: 1.5;
+  margin-bottom: 22px;
+}
+
+/* Completion Metrics Cards */
+.metrics-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  background-color: #F8FAFC;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  padding: 14px 10px;
+  margin-bottom: 22px;
+}
+
+.metric-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.metric-label {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.metric-value {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-text-main);
+}
+
+.metric-value.highlight {
+  color: var(--color-emart-green);
+}
+
+/* Modal Actions */
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-checkout-guide {
+  width: 100%;
+  background: linear-gradient(135deg, var(--color-emart-yellow) 0%, #F59E0B 100%);
+  color: #111;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 14px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.35);
+  transition: all var(--trans-fast);
+}
+
+.btn-checkout-guide:hover {
+  transform: translateY(-1px);
+}
+
+.btn-modal-close {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px;
+  cursor: pointer;
+  transition: color var(--trans-fast);
+}
+
+.btn-modal-close:hover {
+  color: var(--color-text-main);
+}
+
+/* ==========================================================================
+   Product Detail Modal (Photo zoom)
+   ========================================================================== */
+.product-modal-card {
+  width: 100%;
+  max-width: 380px;
+  background-color: #FFFFFF;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-float);
+  position: relative;
+  padding: 0;
+  text-align: left;
+}
+
+.product-modal-img-box {
+  width: 100%;
+  height: 260px;
+  background-color: #F8FAFC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.product-modal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: #FFF;
+}
+
+.product-modal-body {
+  padding: 18px 20px;
+}
+
+.product-modal-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #FFF;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* Toast Message */
+.toast-msg {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background-color: rgba(26, 32, 44, 0.95);
+  color: #FFFFFF;
+  padding: 10px 18px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 99;
+}
+
+.toast-msg.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ==========================================================================
+   CART & SEARCH SCREEN STYLES (prototype.url 기반 첫 화면)
+   ========================================================================== */
+.cart-screen-container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-bottom: 90px;
+}
+
+.cart-hero-card {
+  background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+  border: 1px solid rgba(255, 191, 0, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.cart-hero-text h2 {
+  font-size: 16px;
+  font-weight: 800;
+  color: #78350F;
+  margin-bottom: 4px;
+}
+
+.cart-hero-text p {
+  font-size: 12px;
+  color: #92400E;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.cart-hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.hero-chip {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(255, 191, 0, 0.4);
+  border-radius: var(--radius-full);
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #B45309;
+}
+
+/* Section A: Search & Add */
+.search-section-box {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.section-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.section-heading {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--color-text-main);
+}
+
+.section-hint {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  font-size: 16px;
+  pointer-events: none;
+  color: var(--color-text-muted);
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 38px 12px 40px;
+  background-color: #F8FAFC;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-main);
+  outline: none;
+  transition: all var(--trans-fast);
+}
+
+.search-input:focus {
+  background-color: #FFFFFF;
+  border-color: var(--color-emart-yellow);
+  box-shadow: 0 0 0 3px rgba(255, 191, 0, 0.2);
+}
+
+.search-clear-btn {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* Quick Tags Scroll */
+.quick-tags-scroll {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.quick-tags-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.quick-tag-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-sub);
+  white-space: nowrap;
+}
+
+.quick-tag-chip {
+  background-color: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  border-radius: var(--radius-full);
+  padding: 4px 10px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-main);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all var(--trans-fast);
+}
+
+.quick-tag-chip:hover {
+  background-color: var(--color-emart-yellow-light);
+  border-color: var(--color-emart-yellow);
+  color: #78350F;
+}
+
+/* Live Search Results Dropdown */
+.search-results-panel {
+  background-color: #FFFFFF;
+  border: 1.5px solid var(--color-emart-yellow);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-md);
+}
+
+.search-results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text-sub);
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--color-border-light);
+  padding-bottom: 6px;
+}
+
+.btn-close-results {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.search-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  background-color: #F8FAFC;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--trans-fast);
+}
+
+.search-result-item:hover {
+  background-color: #F1F5F9;
+}
+
+.result-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.result-item-thumb {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  object-fit: cover;
+  background-color: #FFF;
+  border: 1px solid var(--color-border);
+}
+
+.result-item-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.result-item-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.result-item-sub {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.btn-add-search-item {
+  background-color: var(--color-emart-yellow);
+  color: #111;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all var(--trans-fast);
+}
+
+.btn-add-search-item:hover {
+  background-color: var(--color-emart-yellow-hover);
+  transform: scale(1.03);
+}
+
+.btn-add-search-item.added {
+  background-color: #10B981;
+  color: #FFF;
+}
+
+/* Custom Item Direct Add */
+.custom-add-box {
+  display: flex;
+  gap: 8px;
+}
+
+.custom-add-input {
+  flex: 1;
+  padding: 9px 12px;
+  background-color: #F8FAFC;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 12px;
+  outline: none;
+}
+
+.custom-add-input:focus {
+  border-color: #94A3B8;
+  background-color: #FFF;
+}
+
+.btn-custom-add {
+  background-color: #F1F5F9;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0 12px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-custom-add:hover {
+  background-color: #E2E8F0;
+}
+
+/* Section B: Cart Items List */
+.cart-items-section {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.cart-count-badge {
+  background-color: var(--color-emart-yellow);
+  color: #111;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+}
+
+.cart-actions-group {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-text-action {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-sub);
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+.btn-text-action:hover {
+  text-decoration: underline;
+}
+
+.btn-text-action.text-danger {
+  color: #EF4444;
+}
+
+.cart-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.cart-item-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  transition: transform var(--trans-fast), box-shadow var(--trans-fast);
+}
+
+.cart-item-card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.cart-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.cart-item-order-badge {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: #FEF3C7;
+  color: #92400E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.cart-item-thumb {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  background-color: #F8FAFC;
+  border: 1px solid var(--color-border-light);
+  flex-shrink: 0;
+}
+
+.cart-item-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-item-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  line-height: 1.3;
+}
+
+.cart-item-tags {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.cart-item-category {
+  font-size: 10px;
+  font-weight: 700;
+  color: #2563EB;
+  background-color: #EFF6FF;
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.cart-item-loc {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.cart-item-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart-item-price {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-text-main);
+  white-space: nowrap;
+}
+
+.cart-item-del-btn {
+  background: none;
+  border: none;
+  color: #94A3B8;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 4px;
+  transition: color var(--trans-fast);
+}
+
+.cart-item-del-btn:hover {
+  color: #EF4444;
+}
+
+/* Cart Summary Bar */
+.cart-summary-bar {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background-color: #F8FAFC;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summary-left, .summary-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.summary-right {
+  align-items: flex-end;
+}
+
+.summary-label {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.summary-count {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--color-text-main);
+}
+
+.summary-price {
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--color-emart-green);
+}
+
+/* Sticky Bottom Action Bar: '쓱map 시작하기' Button */
+.start-map-cta-container {
+  position: sticky;
+  bottom: 12px;
+  z-index: 40;
+  margin-top: 4px;
+}
+
+.btn-start-ssgmap {
+  width: 100%;
+  background: linear-gradient(135deg, #FFBF00 0%, #F59E0B 100%);
+  color: #111;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4);
+  cursor: pointer;
+  transition: all var(--trans-fast);
+}
+
+.btn-start-ssgmap:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(245, 158, 11, 0.5);
+}
+
+.start-btn-icon {
+  font-size: 22px;
+}
+
+.start-btn-text-box {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.start-btn-main {
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.start-btn-sub {
+  font-size: 11px;
+  font-weight: 700;
+  color: #78350F;
+}
+
+/* ==========================================================================
+   추천 연관상품 모달 STYLES ('쓱map 시작하기' 클릭 시 노출)
+   ========================================================================== */
+.recommend-modal-card {
+  width: 100%;
+  max-width: 440px;
+  background-color: #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-float);
+  position: relative;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.recommend-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--color-border-light);
+  padding-bottom: 12px;
+}
+
+.recommend-title-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.recommend-icon {
+  font-size: 26px;
+}
+
+.recommend-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--color-text-main);
+  line-height: 1.3;
+}
+
+.recommend-subtitle {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin-top: 3px;
+}
+
+.modal-close-icon-btn {
+  background: none;
+  border: none;
+  color: #94A3B8;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.recommend-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  padding-right: 4px;
+  margin-bottom: 16px;
+}
+
+.recommend-item-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: var(--radius-md);
+  transition: all var(--trans-fast);
+}
+
+.recommend-item-card:hover {
+  background-color: #FFFDF5;
+  border-color: var(--color-emart-yellow);
+}
+
+.rec-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rec-item-thumb {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  background-color: #FFF;
+  border: 1px solid var(--color-border);
+}
+
+.rec-item-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.rec-match-badge {
+  font-size: 10px;
+  font-weight: 800;
+  color: #D97706;
+  background-color: #FEF3C7;
+  padding: 1px 6px;
+  border-radius: 4px;
+  align-self: flex-start;
+  margin-bottom: 2px;
+}
+
+.rec-item-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.rec-item-price {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--color-emart-green);
+}
+
+.btn-rec-add {
+  background-color: #FFFFFF;
+  border: 1.5px solid var(--color-emart-yellow);
+  color: #78350F;
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all var(--trans-fast);
+  white-space: nowrap;
+}
+
+.btn-rec-add:hover {
+  background-color: var(--color-emart-yellow);
+  color: #111;
+}
+
+.btn-rec-add.added {
+  background-color: #10B981;
+  border-color: #10B981;
+  color: #FFFFFF;
+}
+
+.recommend-footer {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.btn-skip-recommend {
+  flex: 1;
+  background-color: #F1F5F9;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 12px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-sub);
+  cursor: pointer;
+}
+
+.btn-proceed-map {
+  flex: 2;
+  background: linear-gradient(135deg, var(--color-emart-yellow) 0%, #F59E0B 100%);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  color: #111;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+}
+
+/* ==========================================================================
+   GPS 내위치 RED DOT MARKER STYLES
+   ========================================================================== */
+.btn-back-to-cart {
+  background: none;
+  border: 1px solid rgba(120, 53, 15, 0.25);
+  border-radius: var(--radius-full);
+  padding: 4px 10px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  color: #78350F;
+  cursor: pointer;
+  transition: all var(--trans-fast);
+  margin-right: 6px;
+}
+
+.btn-back-to-cart:hover {
+  background-color: #FEF3C7;
+}
+
+.my-location-marker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 25;
+  transition: left 0.4s ease, top 0.4s ease;
+}
+
+.location-core-dot {
+  width: 14px;
+  height: 14px;
+  background-color: #EF4444;
+  border: 2.5px solid #FFFFFF;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.6);
+  position: relative;
+  z-index: 2;
+}
+
+.location-pulse-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgba(239, 68, 68, 0.35);
+  animation: gps-wave 2s infinite ease-out;
+  z-index: 1;
+}
+
+@keyframes gps-wave {
+  0% { transform: translate(-50%, -50%) scale(0.4); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
+}
+
+.location-badge {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #EF4444;
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.legend-dot.my-loc {
+  background-color: #EF4444;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.25);
+}
+
+/* ==========================================================================
+   FLOATING AR 길안내 BUTTON STYLES (오른쪽 하단 배치)
+   ========================================================================== */
+.btn-ar-floating {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  z-index: 35;
+  background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+  border: 1.5px solid rgba(255, 191, 0, 0.6);
+  border-radius: var(--radius-full);
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #FFFFFF;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 12px rgba(255, 191, 0, 0.25);
+  cursor: pointer;
+  transition: all var(--trans-fast);
+}
+
+.btn-ar-floating:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 16px rgba(255, 191, 0, 0.4);
+}
+
+.ar-icon {
+  font-size: 20px;
+}
+
+.ar-text-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.ar-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--color-emart-yellow);
+  line-height: 1.1;
+}
+
+.ar-sub {
+  font-size: 9px;
+  color: #94A3B8;
+  font-weight: 600;
+}
+
+.ar-live-tag {
+  background-color: #EF4444;
+  color: #FFF;
+  font-size: 9px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 4px;
+  animation: pulse-ar-live 1.6s infinite;
+}
+
+@keyframes pulse-ar-live {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* ==========================================================================
+   AR 기술 적용 화면 (FULLSCREEN AR WAYFINDING OVERLAY)
+   ========================================================================== */
+.ar-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background-color: #000000;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ar-camera-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.ar-video-feed {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Realistic 3D Aisle Backdrop Fallback (Camera denied or Desktop) */
+.ar-simulated-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 35%, #334155 0%, #0F172A 70%, #020617 100%);
+  perspective: 600px;
+  overflow: hidden;
+}
+
+.sim-aisle-ceiling {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 25%;
+  background: repeating-linear-gradient(90deg, #1E293B, #1E293B 60px, #334155 60px, #334155 65px);
+  border-bottom: 2px solid #64748B;
+}
+
+.sim-shelf-left {
+  position: absolute;
+  top: 25%;
+  left: 0;
+  width: 25%;
+  height: 55%;
+  background: repeating-linear-gradient(0deg, #1E293B, #1E293B 35px, #475569 35px, #475569 38px);
+  border-right: 3px solid #FFBF00;
+}
+
+.sim-shelf-right {
+  position: absolute;
+  top: 25%;
+  right: 0;
+  width: 25%;
+  height: 55%;
+  background: repeating-linear-gradient(0deg, #1E293B, #1E293B 35px, #475569 35px, #475569 38px);
+  border-left: 3px solid #FFBF00;
+}
+
+.sim-aisle-floor {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(180deg, #1E293B 0%, #0F172A 100%);
+  border-top: 1px solid #475569;
+}
+
+/* AR Hologram Stage */
+.ar-hologram-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ar-floor-arrows {
+  position: absolute;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%) perspective(400px) rotateX(65deg);
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 25px;
+}
+
+.ar-arrow {
+  color: var(--color-emart-yellow);
+  font-size: 40px;
+  font-weight: 900;
+  text-shadow: 0 0 20px rgba(255, 191, 0, 0.8), 0 0 35px rgba(255, 191, 0, 0.5);
+  animation: ar-arrow-flow 1.5s infinite ease-in-out;
+}
+
+.arrow-1 { animation-delay: 0s; opacity: 0.9; }
+.arrow-2 { animation-delay: 0.25s; opacity: 0.7; }
+.arrow-3 { animation-delay: 0.5s; opacity: 0.4; }
+
+@keyframes ar-arrow-flow {
+  0% { transform: translateY(20px); opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-20px); opacity: 0.2; }
+}
+
+/* Floating 3D Waypoint Billboard */
+.ar-target-billboard {
+  position: absolute;
+  top: 36%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid var(--color-emart-yellow);
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 0 25px rgba(255, 191, 0, 0.5), 0 10px 30px rgba(0,0,0,0.5);
+  animation: float-billboard 2.5s infinite ease-in-out;
+}
+
+@keyframes float-billboard {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+  50% { transform: translate(-50%, -50%) translateY(-10px); }
+}
+
+.billboard-badge {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  background-color: var(--color-emart-yellow);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.billboard-order {
+  font-size: 16px;
+  font-weight: 900;
+  color: #111;
+}
+
+.billboard-pulse {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid var(--color-emart-yellow);
+  animation: billboard-ring 1.8s infinite;
+}
+
+@keyframes billboard-ring {
+  0% { transform: scale(0.9); opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.billboard-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.billboard-distance {
+  font-size: 11px;
+  color: #FCD34D;
+  font-weight: 600;
+}
+
+/* Top AR Navigation HUD */
+.ar-top-hud {
+  position: relative;
+  z-index: 10;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+}
+
+.ar-hud-nav-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  flex: 1;
+}
+
+.ar-nav-turn-icon {
+  font-size: 26px;
+}
+
+.ar-instruction-main {
+  font-size: 14px;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.ar-instruction-sub {
+  font-size: 11px;
+  color: #94A3B8;
+}
+
+.ar-mini-radar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1.5px solid rgba(16, 185, 129, 0.6);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+}
+
+.radar-scan {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: conic-gradient(from 0deg, rgba(16, 185, 129, 0.4) 0deg, transparent 90deg);
+  animation: radar-sweep 2.5s infinite linear;
+}
+
+@keyframes radar-sweep {
+  to { transform: rotate(360deg); }
+}
+
+.radar-dot.me {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  background-color: #EF4444;
+  border-radius: 50%;
+}
+
+.radar-dot.target {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-emart-yellow);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--color-emart-yellow);
+}
+
+/* Bottom AR Item Control Bar */
+.ar-bottom-controls {
+  position: relative;
+  z-index: 10;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+}
+
+.ar-item-summary-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 191, 0, 0.4);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+}
+
+.ar-item-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  background-color: #FFF;
+}
+
+.ar-item-meta {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-left: 10px;
+}
+
+.ar-item-step {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--color-emart-yellow);
+}
+
+.ar-item-name {
+  font-size: 13px;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.ar-item-price {
+  font-size: 12px;
+  color: #CBD5E1;
+}
+
+.ar-btn-check {
+  background: linear-gradient(135deg, var(--color-emart-yellow) 0%, #F59E0B 100%);
+  color: #111;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ar-btn-check.completed {
+  background: #10B981;
+  color: #FFF;
+}
+
+.ar-action-btn-row {
+  display: flex;
+  gap: 10px;
+}
+
+.ar-btn-back-map {
+  flex: 2;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.ar-btn-cam-toggle {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  color: #CBD5E1;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}

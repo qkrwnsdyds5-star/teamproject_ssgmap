@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>이마트 쓱map | 금정점 스마트 장보기 네비게이션</title>
+  <meta name="description" content="이마트 금정점 오프라인 스마트 동선 안내 및 실물 상품 매칭 네비게이션 서비스 쓱map" />
+  
+  <!-- Pretendard Modern Web Font -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+  <!-- App Stylesheet -->
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <!-- Mobile-centric Application Viewport Container -->
+  <main class="app-viewport">
+    
+    <!-- 1. Top Navigation Bar (Header) -->
+    <header class="app-header">
+      <!-- Left: Brand Logo Image (Enlarged 쓱map 로고.png) -->
+      <a href="#" class="brand-wrapper" id="brandHomeLink" title="쓱map 홈으로">
+        <img 
+          src="./쓱map 로고.png" 
+          alt="쓱map 로고" 
+          class="app-logo-img" 
+          id="appMainLogo"
+        />
+      </a>
+
+      <!-- Right: Store Location Badge & Controls -->
+      <div class="header-right">
+        <div class="store-badge" id="storeBadge" title="이마트 금정점 1F 매장 안내">
+          <span class="dot"></span>
+          <span>이마트 금정점 1F</span>
+        </div>
+        <!-- Sound Effect Toggle -->
+        <button class="icon-btn" id="soundToggleBtn" aria-label="효과음 토글" title="효과음 켜기/끄기">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- 2. Shopping Progress Banner -->
+    <section class="shopping-progress-bar-container" aria-label="장보기 진행 상태">
+      <div class="progress-info">
+        <span class="progress-title" id="progressText">
+          🛒 장보기를 시작해보세요
+        </span>
+        <span class="progress-count" id="progressCount">0/7 (0%)</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressBar"></div>
+      </div>
+    </section>
+
+    <!-- 3. Navigation Tabs -->
+    <nav class="nav-tabs" role="tablist">
+      <button class="tab-btn active" data-tab="cart" id="tabCartBtn" role="tab" aria-selected="true">
+        <span>🛒 장바구니 & 검색</span>
+        <span class="tab-badge" id="cartTabBadge">7</span>
+      </button>
+      <button class="tab-btn" data-tab="map" id="tabMapBtn" role="tab" aria-selected="false">
+        <span>📍 동선 지도</span>
+        <span class="tab-badge" id="mapTabBadge">0/7</span>
+      </button>
+      <button class="tab-btn" data-tab="guide" id="tabGuideBtn" role="tab" aria-selected="false">
+        <span>🏢 층별 안내</span>
+      </button>
+    </nav>
+
+    <!-- =========================================================================
+         4. TAB CONTENT 1: CART & SEARCH INITIAL SCREEN (prototype.url 기반 첫 화면)
+         ========================================================================= -->
+    <article class="tab-content active" id="cartTab">
+      <div class="cart-screen-container">
+        
+        <!-- Hero Intro Card -->
+        <div class="cart-hero-card">
+          <div class="cart-hero-text">
+            <h2>오늘 이마트에서 무엇을 구매하시나요?</h2>
+            <p>구매 희망 상품을 검색해 담고 <b>'쓱map 시작하기'</b>를 누르면 연관상품 추천과 최적 보행 동선을 안내해 드립니다.</p>
+          </div>
+          <div class="cart-hero-badges">
+            <span class="hero-chip">⚡ 무게·온도 최적 적재</span>
+            <span class="hero-chip">🚶 흰색 통로 100% 동선</span>
+            <span class="hero-chip">🧭 AR 카메라 길안내</span>
+          </div>
+        </div>
+
+        <!-- Section A: 구매 희망 상품 검색 & 추가 -->
+        <section class="search-section-box">
+          <div class="section-title-row">
+            <h3 class="section-heading">🔍 구매 희망 상품 검색 & 추가</h3>
+            <span class="section-hint">매장 내 상품을 바로 찾아 담아보세요</span>
+          </div>
+
+          <!-- Search Input Bar -->
+          <div class="search-input-wrapper">
+            <span class="search-icon">🔎</span>
+            <input 
+              type="text" 
+              class="search-input" 
+              id="productSearchInput" 
+              placeholder="담을 상품을 검색하세요 (예: 라면, 삼겹살, 우유, 쌈장...)"
+              autocomplete="off"
+            />
+            <button class="search-clear-btn" id="searchClearBtn" title="검색어 지우기" style="display:none;">✕</button>
+          </div>
+
+          <!-- Quick Keyword Tag Chips -->
+          <div class="quick-tags-scroll">
+            <span class="quick-tag-label">추천 키워드:</span>
+            <button class="quick-tag-chip" data-keyword="라면">🍜 라면</button>
+            <button class="quick-tag-chip" data-keyword="삼겹살">🥩 삼겹살</button>
+            <button class="quick-tag-chip" data-keyword="우유">🥛 우유</button>
+            <button class="quick-tag-chip" data-keyword="식빵">🍞 식빵</button>
+            <button class="quick-tag-chip" data-keyword="사과">🍎 사과</button>
+            <button class="quick-tag-chip" data-keyword="계란">🥚 계란</button>
+            <button class="quick-tag-chip" data-keyword="만두">🥟 만두</button>
+            <button class="quick-tag-chip" data-keyword="쌈장">🥫 쌈장</button>
+            <button class="quick-tag-chip" data-keyword="쌈채소">🥬 쌈채소</button>
+            <button class="quick-tag-chip" data-keyword="치즈">🧀 치즈</button>
+          </div>
+
+          <!-- Live Search Results Dropdown/Box -->
+          <div class="search-results-panel" id="searchResultsPanel" style="display:none;">
+            <div class="search-results-header">
+              <span>검색 결과 (<span id="searchResultCount">0</span>)</span>
+              <button class="btn-close-results" id="btnCloseSearchResults">닫기</button>
+            </div>
+            <div class="search-results-list" id="searchResultsList"></div>
+          </div>
+
+          <!-- Custom Item Direct Add Line -->
+          <div class="custom-add-box">
+            <input 
+              type="text" 
+              class="custom-add-input" 
+              id="customItemInput" 
+              placeholder="원하는 상품이 없나요? 직접 입력해 추가하기" 
+            />
+            <button class="btn-custom-add" id="btnCustomAdd">+ 직접 추가</button>
+          </div>
+        </section>
+
+        <!-- Section B: 장바구니 목록 -->
+        <section class="cart-items-section">
+          <div class="section-title-row">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <h3 class="section-heading">📋 장바구니 목록</h3>
+              <span class="cart-count-badge" id="cartCountBadge">7개</span>
+            </div>
+            <div class="cart-actions-group">
+              <button class="btn-text-action" id="btnResetDefaultItems" title="기본 7종 품목 복원">기본 7종 리셋</button>
+              <button class="btn-text-action text-danger" id="btnClearAllCart" title="장바구니 모두 비우기">전체 비우기</button>
+            </div>
+          </div>
+
+          <!-- List of Cart Items -->
+          <div class="cart-items-list" id="cartItemsList"></div>
+
+          <!-- Cart Summary Cost Bar -->
+          <div class="cart-summary-bar">
+            <div class="summary-left">
+              <span class="summary-label">총 담은 품목</span>
+              <span class="summary-count" id="summaryTotalCount">7개</span>
+            </div>
+            <div class="summary-right">
+              <span class="summary-label">총 예상 결제 금액</span>
+              <span class="summary-price" id="summaryTotalPrice">44,400원</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Sticky Bottom Action Bar: '쓱map 시작하기' Button -->
+        <div class="start-map-cta-container">
+          <button class="btn-start-ssgmap" id="btnStartSsgMap">
+            <span class="start-btn-icon">🚀</span>
+            <div class="start-btn-text-box">
+              <span class="start-btn-main">쓱map 시작하기</span>
+              <span class="start-btn-sub">추천 연관상품 & 1F 최적 동선 생성 ➔</span>
+            </div>
+          </button>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- =========================================================================
+         5. TAB CONTENT 2: INTERACTIVE MAP VIEW (GPS 내위치 & AR 길안내 버튼)
+         ========================================================================= -->
+    <article class="tab-content" id="mapTab">
+      <div class="map-section">
+        <div class="map-card">
+          <!-- Map Header Info & Zoom / GPS Controls -->
+          <div class="map-header">
+            <div class="map-header-left">
+              <button class="btn-back-to-cart" id="btnBackToCart" title="장바구니 목록으로 돌아가기">
+                ‹ 장바구니 수정
+              </button>
+              <div>
+                <h1 class="map-header-title">이마트 금정점 1층 실시간 맵</h1>
+                <p class="map-header-subtitle">고객 전용 통로(흰색) 기반 최적 동선 안내</p>
+              </div>
+            </div>
+            <div class="map-controls">
+              <button class="map-btn" id="btnGpsLocate" title="GPS 내 위치 찾기">📍 내위치</button>
+              <button class="map-btn" id="btnSimulateWalk" title="보행 동선 시뮬레이션">🚶 걷기시뮬</button>
+              <button class="map-btn active" id="btnResetView" title="기본 배율">1F 전체</button>
+              <button class="map-btn" id="btnZoomIn" title="확대" aria-label="지도 확대">+</button>
+              <button class="map-btn" id="btnZoomOut" title="축소" aria-label="지도 축소">-</button>
+            </div>
+          </div>
+
+          <!-- Map Interactive Viewport (1F Only) -->
+          <div class="map-viewport-wrapper" id="mapViewport">
+            <div class="map-canvas-container" id="mapCanvasContainer">
+              <!-- Actual 1F Store Guide Map Image -->
+              <img 
+                src="./emart_1f_map.png" 
+                alt="이마트 금정점 1층 매장 안내 지도" 
+                class="store-map-image" 
+                id="storeMapImage"
+              />
+
+              <!-- SVG Polyline Overlay for Optimal Wayfinding Route (White Aisles) -->
+              <svg class="map-svg-overlay" id="mapSvgOverlay"></svg>
+
+              <!-- Interactive Dynamic Pins Overlay -->
+              <div class="map-pins-container" id="mapPinsContainer"></div>
+
+              <!-- GPS Customer Live '내위치' Red Dot Marker -->
+              <div class="my-location-marker" id="myLocationMarker" style="left: 68.2%; top: 77.5%;">
+                <div class="location-pulse-ring"></div>
+                <div class="location-core-dot"></div>
+                <div class="location-badge">내위치</div>
+              </div>
+            </div>
+
+            <!-- Floating AR 길안내 Button (오른쪽 하단 배치) -->
+            <button class="btn-ar-floating" id="btnOpenArNav" aria-label="AR 길안내 시작" title="증강현실(AR) 길안내 열기">
+              <span class="ar-icon">🧭</span>
+              <div class="ar-text-group">
+                <span class="ar-title">AR 길안내</span>
+                <span class="ar-sub">카메라 입체 동선</span>
+              </div>
+              <span class="ar-live-tag">LIVE</span>
+            </button>
+          </div>
+
+          <!-- Map Footer Legend -->
+          <div class="map-footer-bar">
+            <div class="map-legend">
+              <div class="legend-item">
+                <span class="legend-dot target"></span>
+                <span>1~7번 순번 (숫자 핀)</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot done"></span>
+                <span>담은 상품 (✓)</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot path"></span>
+                <span>보행 통로 동선 (흰색)</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot my-loc"></span>
+                <span>내위치 (빨간 점)</span>
+              </div>
+            </div>
+            <span style="font-size:11px; color:#888;">지도 터치 시 내위치 즉시 이동</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dedicated Interactive Route Waypoints Section (Under Map) -->
+      <section class="route-section-wrapper" aria-label="쇼핑 추천 동선 및 상품 선택">
+        <div class="route-tracker-card">
+          <div class="route-header-row">
+            <div class="route-header-title">
+              <span style="font-size: 16px;">⚡</span>
+              <span>스마트 추천 동선 (무게·온도·파손 고려)</span>
+            </div>
+            <span class="route-step-summary" id="routeStepSummary">
+              입구 ➔ 1.라면(상온/바닥) ➔ 2.사과(청과/하단) ➔ 3.우유(냉장/1L) ➔ 4.삼겹살(신선육) ➔ 5.식빵(상단) ➔ 6.계란(파손주의) ➔ 7.만두(냉동) ➔ 계산대
+            </span>
+          </div>
+          <div style="font-size: 11px; color: #64748B; margin-bottom: 8px;">
+            상온/무거운 상품을 먼저 싣고, 찌그러지거나 깨지기 쉬운 품목은 위로, 냉동식품은 녹지 않게 계산대 직전에 담습니다. <b>'+ 카트에 담기'</b>를 누르면 자동으로 다음 상품으로 넘어갑니다.
+          </div>
+
+          <!-- Clickable Horizontal Step Chips (1 to 7) -->
+          <div class="waypoints-scroll-row" id="waypointsScrollRow"></div>
+
+          <!-- Active Selected Item Panel -->
+          <div class="waypoint-active-panel" id="waypointActivePanel"></div>
+        </div>
+      </section>
+    </article>
+
+    <!-- =========================================================================
+         6. TAB CONTENT 3: STORE GUIDE & FLOOR INFO
+         ========================================================================= -->
+    <article class="tab-content" id="guideTab">
+      <div class="guide-section">
+        <div class="guide-banner">
+          <h2>이마트 금정점 안내</h2>
+          <p>부산광역시 금정구 중앙대로 1841번길에 위치한 이마트 금정점입니다. 신선식품과 프리미엄 식재료를 한자리에서 만나보실 수 있습니다.</p>
+          <div style="display:flex; gap:16px; margin-top:12px; font-size:12px; color:#FEF3C7;">
+            <span>⏰ 영업시간 10:00 ~ 23:00</span>
+            <span>🅿️ 3F~4F 주차장 완비</span>
+          </div>
+        </div>
+
+        <div class="floor-cards">
+          <!-- 1F -->
+          <div class="floor-card">
+            <div class="floor-card-header">
+              <span class="floor-tag">1F</span>
+              <div>
+                <div class="floor-title">신선식품 / 가공식품 / 생활용품 / 델리·베이커리</div>
+                <div style="font-size:11px; color:#10B981; font-weight:700;">현재 '쓱map' 스마트 동선 지원 층</div>
+              </div>
+            </div>
+            <p class="floor-items">
+              농산(과일/채소), 축산(한우/한돈/계란), 수산, 가공냉장·냉동, 우유/유제품, 라면/스낵, 노브랜드, 베이커리(블랑제리), 푸드코트, 고객만족센터, 스피드 계산대
+            </p>
+          </div>
+
+          <!-- 2F -->
+          <div class="floor-card">
+            <div class="floor-card-header">
+              <span class="floor-tag" style="background:#E2E8F0; color:#334155;">2F</span>
+              <div>
+                <div class="floor-title">일렉트로마트 / 패션 / 문구 / 완구 / A STORE</div>
+              </div>
+            </div>
+            <p class="floor-items">
+              일렉트로마트(가전), 애플 공식인증 A STORE, 문구/완구, 탑텐, 렌트페이스, ABC마트, 공차, 뉴욕버거, 배스킨라빈스, 문화센터
+            </p>
+          </div>
+
+          <!-- 3F & 4F -->
+          <div class="floor-card">
+            <div class="floor-card-header">
+              <span class="floor-tag" style="background:#E2E8F0; color:#334155;">3F</span>
+              <div>
+                <div class="floor-title">고객 주차장 / 편의시설 / 전기차 충전소</div>
+              </div>
+            </div>
+            <p class="floor-items">
+              주차장, 세탁소(크린토피아), 스팀세차, 열쇠/도장, 스피드메이트(차량정비소), 타이어센터, 전기차 충전기
+            </p>
+          </div>
+
+          <div class="floor-card">
+            <div class="floor-card-header">
+              <span class="floor-tag" style="background:#E2E8F0; color:#334155;">4F</span>
+              <div>
+                <div class="floor-title">고객 전용 주차장</div>
+              </div>
+            </div>
+            <p class="floor-items">
+              넓고 쾌적한 4층 주차공간 (엘리베이터 및 에스컬레이터 연결)
+            </p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- =========================================================================
+         7. 추천 연관상품 추천 모달 ('쓱map 시작하기' 클릭 시 실행)
+         ========================================================================= -->
+    <aside class="modal-overlay" id="recommendModal" aria-modal="true" role="dialog">
+      <div class="modal-card recommend-modal-card">
+        <div class="recommend-header">
+          <div class="recommend-title-group">
+            <span class="recommend-icon">💡</span>
+            <div>
+              <h2 class="recommend-title">장보기 전, 빠진 것은 없으신가요?</h2>
+              <p class="recommend-subtitle">담으신 상품과 함께 자주 구매하는 추천 연관상품입니다.</p>
+            </div>
+          </div>
+          <button class="modal-close-icon-btn" id="btnRecommendClose" aria-label="닫기">✕</button>
+        </div>
+
+        <!-- Recommendations Items Scroll List -->
+        <div class="recommend-list" id="recommendList"></div>
+
+        <!-- Recommend Footer Actions -->
+        <div class="recommend-footer">
+          <button class="btn-skip-recommend" id="btnSkipRecommend">
+            건너뛰기
+          </button>
+          <button class="btn-proceed-map" id="btnProceedToMap">
+            <span>🗺️ 최적 동선 확인하고 쓱map 시작</span>
+            <span>➔</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- =========================================================================
+         8. AR 길안내 전체화면 인터페이스 (AR 기술 적용 화면)
+         ========================================================================= -->
+    <section class="ar-overlay" id="arNavOverlay" aria-modal="true" role="dialog" style="display:none;">
+      <!-- AR Camera Video / Simulated Corridor Viewport -->
+      <div class="ar-camera-container">
+        <!-- Live device camera stream (if permitted) -->
+        <video id="arVideoFeed" class="ar-video-feed" autoplay playsinline muted></video>
+        <!-- Realistic 3D Aisle Simulation Fallback Background -->
+        <div class="ar-simulated-backdrop" id="arSimBackdrop">
+          <div class="sim-aisle-ceiling"></div>
+          <div class="sim-shelf-left"></div>
+          <div class="sim-shelf-right"></div>
+          <div class="sim-aisle-floor"></div>
+        </div>
+      </div>
+
+      <!-- AR 3D Holographic Overlays Container -->
+      <div class="ar-hologram-stage" id="arHologramStage">
+        <!-- Perspective Floor Arrows -->
+        <div class="ar-floor-arrows">
+          <div class="ar-arrow arrow-1">▲</div>
+          <div class="ar-arrow arrow-2">▲</div>
+          <div class="ar-arrow arrow-3">▲</div>
+        </div>
+
+        <!-- Floating 3D Waypoint Pin Billboard -->
+        <div class="ar-target-billboard" id="arTargetBillboard">
+          <div class="billboard-badge">
+            <span class="billboard-pulse"></span>
+            <span class="billboard-order" id="arBillboardOrder">1</span>
+          </div>
+          <div class="billboard-content">
+            <div class="billboard-title" id="arBillboardTitle">노브랜드 라면 한그릇</div>
+            <div class="billboard-distance" id="arBillboardDist">📍 앞으로 8m 직진 후 좌측 매대</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top AR Navigation HUD Bar -->
+      <div class="ar-top-hud">
+        <div class="ar-hud-nav-box">
+          <span class="ar-nav-turn-icon" id="arNavTurnIcon">⬆️</span>
+          <div class="ar-nav-instructions">
+            <div class="ar-instruction-main" id="arInstructionMain">중앙 통로를 따라 12m 직진하세요</div>
+            <div class="ar-instruction-sub" id="arInstructionSub">다음 목표: 1번 가공식품 라면 매대 앞</div>
+          </div>
+        </div>
+        <!-- Mini-Map Radar Widget -->
+        <div class="ar-mini-radar" id="arMiniRadar" title="현재 매장 내 위치 레이더">
+          <div class="radar-scan"></div>
+          <div class="radar-dot me"></div>
+          <div class="radar-dot target"></div>
+        </div>
+      </div>
+
+      <!-- Bottom AR Item Control Bar -->
+      <div class="ar-bottom-controls">
+        <div class="ar-item-summary-card">
+          <img src="emart_ramen.png" alt="" class="ar-item-thumb" id="arItemThumb" />
+          <div class="ar-item-meta">
+            <div class="ar-item-step" id="arItemStep">STEP 1 · 상온 가공식품</div>
+            <div class="ar-item-name" id="arItemName">노브랜드 라면 한그릇</div>
+            <div class="ar-item-price" id="arItemPrice">2,480원</div>
+          </div>
+          <button class="ar-btn-check" id="arBtnCheck">
+            + 카트에 담기
+          </button>
+        </div>
+
+        <div class="ar-action-btn-row">
+          <button class="ar-btn-back-map" id="btnCloseArNav">
+            🗺️ 2D 지도로 복귀
+          </button>
+          <button class="ar-btn-cam-toggle" id="btnToggleArCam" title="카메라 / 시뮬레이션 전환">
+            📷 카메라 전환
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         9. CELEBRATION MODAL ("장보기 완료!" with Goraeit Character)
+         ========================================================================= -->
+    <aside class="modal-overlay" id="celebrationModal" aria-modal="true" role="dialog">
+      <div class="modal-card">
+        <!-- Confetti Particle Animation Canvas -->
+        <canvas class="confetti-canvas" id="confettiCanvas"></canvas>
+
+        <div class="modal-content-relative">
+          <!-- Explorer Goraeit Character Image Asset -->
+          <div class="goraeit-hero-box">
+            <img 
+              src="./이마트 고래잇 캐릭터.png" 
+              alt="탐험가 고래잇 캐릭터" 
+              class="goraeit-character-img" 
+              id="goraeitCharImg"
+            />
+          </div>
+
+          <span class="goraeit-badge">탐험 성공!</span>
+          
+          <!-- Core Celebration Heading: "장보기 완료!" -->
+          <h2 class="modal-title" id="celebrationTitle">장보기 완료!</h2>
+          <p class="modal-subtitle">
+            오늘 담기로 한 모든 상품을 빠짐없이 찾으셨어요!<br />
+            탐험가 고래잇이 성공적인 쇼핑을 축하합니다.
+          </p>
+
+          <!-- Shopping Performance Metrics -->
+          <div class="metrics-row">
+            <div class="metric-item">
+              <span class="metric-label">담은 상품</span>
+              <span class="metric-value highlight" id="celebItemCount">7개 (100%)</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">절약한 시간</span>
+              <span class="metric-value">약 18분</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">이동 경로</span>
+              <span class="metric-value">흰색통로 최단</span>
+            </div>
+          </div>
+
+          <!-- Modal Action Buttons -->
+          <div class="modal-actions">
+            <button class="btn-checkout-guide" id="btnToCheckout">
+              가까운 계산대로 안내받기 (1층 스피드 계산대)
+            </button>
+            <button class="btn-secondary" id="btnResetShopping" style="width:100%;">
+              새로운 장보기 시작 (장바구니로)
+            </button>
+            <button class="btn-modal-close" id="btnCelebrateClose">
+              장보기 리스트 다시 보기
+            </button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- =========================================================================
+         10. PRODUCT DETAIL MODAL (High-Res Image Zoom & Storage Tip)
+         ========================================================================= -->
+    <aside class="modal-overlay" id="productModal" aria-modal="true" role="dialog">
+      <div class="product-modal-card">
+        <button class="product-modal-close-btn" id="productModalCloseBtn" aria-label="닫기">✕</button>
+        <div class="product-modal-img-box">
+          <img src="" alt="" class="product-modal-img" id="productModalImg" />
+        </div>
+        <div class="product-modal-body">
+          <h3 id="productModalTitle" style="font-size:16px; font-weight:800; margin-bottom:4px; color:#111;"></h3>
+          <div id="productModalLocation" style="font-size:13px; color:#0C5B45; font-weight:700; margin-bottom:6px;"></div>
+          <div id="productModalPrice" style="font-size:14px; font-weight:800; color:#111; margin-bottom:12px;"></div>
+          <div style="background:#FFF9E6; border:1px solid #FDE68A; border-radius:10px; padding:10px; font-size:12px; color:#78350F; line-height:1.5;">
+            <b>💡 신선 보관 팁:</b> <span id="productModalTip"></span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 11. Toast Notification Element -->
+    <div class="toast-msg" id="toastMsg" role="status"></div>
+
+  </main>
+
+  <!-- App Business Logic -->
+  <script src="./app.js"></script>
+</body>
+</html>
